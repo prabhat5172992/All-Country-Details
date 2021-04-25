@@ -25,7 +25,7 @@ export default class Details extends Component {
       <>
         <h1>Country Details</h1>
         <button
-          className="rotate-button get-country"
+          className="rotate-button get-country back"
           onClick={() => this.props.toggleDisplay()}
         >
           Back to countries

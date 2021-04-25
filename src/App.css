@@ -6,6 +6,42 @@
   width: 100%;
   transition: all .2s;
 }
+
+.country-data {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  margin-top: 40px;
+  padding: 10px;
+}
+
+.country-desc {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.country-img {
+  width: 350px;
+  height: 250px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: #ccc 10px 10px 30px;
+  /* transition: all 0.2s ease-in 0s; */
+  transition: all .2s;
+}
+.country-img:hover {
+  cursor: pointer;
+  box-shadow: rgba(7, 7, 6, 0.5) 0px 10px 30px;
+  webkit-transform: translateY(-4px);
+  transform: translateY(-4px);
+}
+
+.country-item {
+  width: 100%;
+}
+
 .count_P {
   background-color: #173417;
   font-weight: bold;
@@ -69,11 +105,6 @@
   box-shadow: none;
   transform: translateY(-1px);
 }
-.country-item {
-  display: inline-block;
-  width: 33.33%;
-  margin-top: 30px;
-}
 .country-details {
   width: 350px;
   margin: auto;
@@ -87,22 +118,6 @@
   width: 175px;
   text-align: right;
   display: inline-block;
-}
-.country-img {
-  width: 350px;
-  height: 250px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: #ccc 10px 10px 30px;
-  /* transition: all 0.2s ease-in 0s; */
-  transition: all .2s;
-}
-.country-img:hover {
-  cursor: pointer;
-  box-shadow: rgba(7, 7, 6, 0.5) 0px 10px 30px;
-  webkit-transform: translateY(-4px);
-  transform: translateY(-4px);
 }
 
 input[type=text],
@@ -152,6 +167,68 @@ input[type=text]:hover + .icon {
   transform: translateY(-4px);
 }
 
+
+@media screen and (min-width: 769px) and (max-width: 1150px) {
+  .country-data {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .country-data {
+    grid-template-columns: 100%;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .country-img {
+    width: 260px;
+    height: 190px;
+  }
+
+  .country-desc {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .country-desc .rotate-button {
+    margin-top: 15px;
+  }
+
+  .icon {
+    right: 16%;
+  }
+
+  input[type=text] {
+    margin-right: 0;
+  }
+
+  .get-country, .get-country:link, .get-country:visited {
+    width: 270px;
+  }
+
+  .country-details {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+  }
+
+  .country-capital, .country-currency {
+    width: 100%;
+    text-align: center;
+    display: block;
+  }
+
+  .count_P {
+    right: 15px;
+    width: 40px;
+  }
+
+  /*  Country Details */
+  .back {
+    width: 85%;
+  }
+}
+
 /* Country detisl CSS */
 .country_Details {
   background-color: #b5f0ff7a;
@@ -176,4 +253,4 @@ input[type=text]:hover + .icon {
   padding: 5px;
   border: 1px solid #ccc;
 }
-/* Country detils CSS ends here */
+/* Country details CSS ends here */

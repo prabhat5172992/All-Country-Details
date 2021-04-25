@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Details from './countryDetails';
+import Details from "./countryDetails";
 export default class Countries extends Component {
   constructor() {
     super();
@@ -16,23 +16,25 @@ export default class Countries extends Component {
     };
     this.checkScroll = this.checkScroll.bind(this);
     this.toggleDisplay = this.toggleDisplay.bind(this);
+    this.countDisplay = this.countDisplay.bind(this);
   }
   componentDidMount() {
     this.getAllCountry();
     document.addEventListener("scroll", this.checkScroll);
-    // document.addEventListener("wheel", this.checkScroll);
+    document.addEventListener("resize", this.countDisplay);
   }
   componentWillUnmount() {
     document.removeEventListener(this.checkScroll);
+    document.removeEventListener(this.countDisplay);
   }
   // check scroll amount
   checkScroll() {
-    let { scrollAmount : x, countries: c, allCountries } = this.state;
+    let { scrollAmount: x, countries: c, allCountries } = this.state;
     if (window.scrollY > x) {
       this.setState({
         scrollAmount: x + 250,
-        countries: allCountries.slice(0, c.length+3),
-      })
+        countries: allCountries.slice(0, c.length + 3),
+      });
     }
   }
   // Calling all country on enter key press
@@ -72,7 +74,7 @@ export default class Countries extends Component {
         if (data.length) {
           this.setState({
             allCountries: data,
-            countries: data.slice(0,9),
+            countries: data.slice(0, 9),
             // countries: data,
             noResult: "",
           });
@@ -197,39 +199,58 @@ export default class Countries extends Component {
       displayDetails: true,
     });
   }
+
   // Toggle country and country display page
   toggleDisplay() {
     this.setState({
       displayDetails: false,
     });
   }
+
+  countDisplay() {
+    const width = window.innerWidth;
+    const { countries } = this.state;
+    console.log("width", width);
+    if(countries.length) {
+      if(width >= 540) {
+        return <p className="count_P">{`Total count: ${countries.length}`}</p>
+      } else {
+        return <p className="count_P">{countries.length}</p>
+      }
+    } else {
+      return null;
+    }
+  }
+
   // Display country list page
   renderCountryList() {
     const { countries, noResult, searchTerm } = this.state;
     return (
       <div className="allcountries-div">
         <h1>All countries list!</h1>
-        <input
-          className="search-box"
-          type="text"
-          placeholder="Search Countries..."
-          value={searchTerm}
-          onChange={(e) => this.getSearchText(e)}
-          onKeyUp={(e) => this.callCountry(e)}
-        />
-        <i
-          className="fa fa-times-circle icon fa-lg"
-          aria-hidden="false"
-          onClick={() => (searchTerm ? this.clearInput() : null)}
-        ></i>
-        <button
-          id="all_countries_list"
-          className="rotate-button get-country"
-          onClick={() => this.getAllCountry()}
-        >
-          Get All Countries!
-        </button>
-        {countries.length ? <p className="count_P">{`Total count: ${countries.length}`}</p> : null}
+        <div className="country-desc">
+          <input
+            className="search-box"
+            type="text"
+            placeholder="Search Countries..."
+            value={searchTerm}
+            onChange={(e) => this.getSearchText(e)}
+            onKeyUp={(e) => this.callCountry(e)}
+          />
+          <i
+            className="fa fa-times-circle icon fa-lg"
+            aria-hidden="false"
+            onClick={() => (searchTerm ? this.clearInput() : null)}
+          ></i>
+          <button
+            id="all_countries_list"
+            className="rotate-button get-country"
+            onClick={() => this.getAllCountry()}
+          >
+            Get All Countries!
+          </button>
+        </div>
+        {this.countDisplay()}
         <div className="country-data">
           {countries && countries.length ? (
             countries.map((item) => {
